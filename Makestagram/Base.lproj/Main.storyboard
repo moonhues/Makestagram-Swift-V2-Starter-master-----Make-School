@@ -58,11 +58,47 @@
                     <view key="view" contentMode="scaleToFill" id="fpY-zy-NsL">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="320" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CAG-FW-ZEz">
+                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="320" id="HPh-cq-Dql" customClass="PostTableViewCell" customModule="Makestagram" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="320"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HPh-cq-Dql" id="MI8-su-qRe">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="319.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kSP-n3-SwR">
+                                                    <rect key="frame" x="0.0" y="-7" width="600" height="326.5"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="postImageView" destination="kSP-n3-SwR" id="9sG-cA-hZP"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="HUg-Pp-Otm" id="I3z-jC-y3S"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="CAG-FW-ZEz" firstAttribute="leading" secondItem="fpY-zy-NsL" secondAttribute="leading" id="WQT-Ga-m6E"/>
+                            <constraint firstItem="ci2-Ze-mTj" firstAttribute="top" secondItem="CAG-FW-ZEz" secondAttribute="bottom" id="XJt-hf-wzZ"/>
+                            <constraint firstAttribute="trailing" secondItem="CAG-FW-ZEz" secondAttribute="trailing" id="awF-4F-6bc"/>
+                            <constraint firstItem="CAG-FW-ZEz" firstAttribute="top" secondItem="9XX-ly-RuS" secondAttribute="bottom" id="nqz-SY-4bz"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="home" id="PAq-PY-1tX">
                         <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="tableView" destination="CAG-FW-ZEz" id="RZh-Ws-wSV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w4Z-30-dp2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -71,7 +107,6 @@
         <!--Tab Bar Controller-->
         <scene sceneID="SOc-9W-OAL">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xcA-pM-IgZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController id="LdP-Og-TxT" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="5mD-dc-0q5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -84,6 +119,7 @@
                         <segue destination="Ktl-Us-bq3" kind="relationship" relationship="viewControllers" id="5Qm-MK-o3f"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xcA-pM-IgZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-689" y="-262"/>
         </scene>

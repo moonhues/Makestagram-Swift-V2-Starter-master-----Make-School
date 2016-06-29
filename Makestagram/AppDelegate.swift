@@ -37,6 +37,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("No logged in user :(") //returns nil
     }
 
+    //Now every new Parse object will be equipped with public read access and write access that is limited to the object's creator.
+    
+    let acl = PFACL()
+    acl.publicReadAccess = true
+    PFACL.setDefaultACL(acl, withAccessForCurrentUser: true)
     
     return true
   }
