@@ -168,6 +168,116 @@ class ParseHelper {
     
     //Now Swift knows to consider any two Parse objects equal if they have the same objectId.
     
+    // MARK: Following
+    
+    /**
+     Fetches all users that the provided user is following.
+     
+     :param: user The user whose followees you want to retrieve
+     :param: completionBlock The completion block that is called when the query completes
+     */
+    static func getFollowingUsersForUser(user: PFUser, completionBlock: PFQueryArrayResultBlock) {
+        let query = PFQuery(className: ParseFollowClass)
+        
+        query.whereKey(ParseFollowFromUser, equalTo:user)
+        query.findObjectsInBackgroundWithBlock(completionBlock)
+    }
+    
+    /**
+     Establishes a follow relationship between two users.
+     
+     :param: user    The user that is following
+     :param: toUser  The user that is being followed
+     */
+    static func addFollowRelationshipFromUser(user: PFUser, toUser: PFUser) {
+        let followObject = PFObject(className: ParseFollowClass)
+        followObject.setObject(user, forKey: ParseFollowFromUser)
+        followObject.setObject(toUser, forKey: ParseFollowToUser)
+        
+        followObject.saveInBackgroundWithBlock(nil)
+    }
+    
+    /**
+     Deletes a follow relationship between two users.
+     
+     :param: user    The user that is following
+     :param: toUser  The user that is being followed
+     */
+    static func removeFollowRelationshipFromUser(user: PFUser, toUser: PFUser) {
+        let query = PFQuery(className: ParseFollowClass)
+        query.whereKey(ParseFollowFromUser, equalTo:user)
+        query.whereKey(ParseFollowToUser, equalTo: toUser)
+        
+        query.findObjectsInBackgroundWithBlock { (results: [PFObject]?, error: NSError?) -> Void in
+            
+            let results = results ?? []
+            
+            for follow in results {
+                follow.deleteInBackgroundWithBlock(nil)
+            }
+        }
+    }
+    
+    // MARK: Users
+    
+    /**
+     Fetch all users, except the one that's currently signed in.
+     Limits the amount of users returned to 20.
+     
+     :param: completionBlock The completion block that is called when the query completes
+     
+     :returns: The generated PFQuery
+     */
+    static func allUsers(completionBlock: PFQueryArrayResultBlock) -> PFQuery {
+        let query = PFUser.query()!
+        // exclude the current user
+        query.whereKey(ParseHelper.ParseUserUsername,
+                       notEqualTo: PFUser.currentUser()!.username!)
+        query.orderByAscending(ParseHelper.ParseUserUsername)
+        query.limit = 20
+        
+        query.findObjectsInBackgroundWithBlock(completionBlock)
+        
+        return query
+    }
+    
+    /**
+     Fetch users whose usernames match the provided search term.
+     
+     :param: searchText The text that should be used to search for users
+     :param: completionBlock The completion block that is called when the query completes
+     
+     :returns: The generated PFQuery
+     */
+    static func searchUsers(searchText: String, completionBlock: PFQueryArrayResultBlock) -> PFQuery {
+        /*
+         NOTE: We are using a Regex to allow for a case insensitive compare of usernames.
+         Regex can be slow on large datasets. For large amount of data it's better to store
+         lowercased username in a separate column and perform a regular string compare.
+         */
+        let query = PFUser.query()!.whereKey(ParseHelper.ParseUserUsername,
+                                             matchesRegex: searchText, modifiers: "i")
+        
+        query.whereKey(ParseHelper.ParseUserUsername,
+                       notEqualTo: PFUser.currentUser()!.username!)
+        
+        query.orderByAscending(ParseHelper.ParseUserUsername)
+        query.limit = 20
+        
+        query.findObjectsInBackgroundWithBlock(completionBlock)
+        
+        return query
+    }
+    
+    /*
+ We've added a total of 5 different queries. All of these queries will be used by the FriendSearchViewController.
+ Two queries are used to search for users. allUsers(completionBlock:) returns all users (except the signed in one) - this query is for when the search bar in the FriendSearchViewController is empty.
+ searchUsers(searchText:completionBlock:) takes the current search String and returns any users that match it.
+ It's noteworthy that both of these methods return a PFQuery object. This allows the FriendSearchViewController to keep a reference to current active request. As the user types into the search field, we will kick off a new search request every time the text changes; you will see that later in the code for the FriendSearchViewController. The FriendSearchViewController will use the reference to the current query to cancel the current request before starting a new one. That way we can prevent a fast-typing user from starting many requests to start in parallel.
+ The other three methods are used to add, remove and retrieve followees of the current user. These are pretty standard Parse queries without any noteworthy implementation details.
+ Using these 5 queries, the FriendSearchViewController will be able to display users that we are searching for and to display whether or not we are following them.
+ */
+    
 }
 
 extension PFObject {

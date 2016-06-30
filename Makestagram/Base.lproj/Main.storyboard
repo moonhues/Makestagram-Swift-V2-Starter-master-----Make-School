@@ -25,12 +25,15 @@
                                     <constraint firstAttribute="height" constant="44" id="VZM-t5-4Pt"/>
                                 </constraints>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Ktl-Us-bq3" id="Ems-Hz-dPF"/>
+                                </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xY7-d9-opx">
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="2AR-6V-f28">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCell" rowHeight="50" id="2AR-6V-f28" customClass="FriendSearchTableViewCell" customModule="Makestagram" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2AR-6V-f28" id="Can-T5-SNs">
@@ -46,14 +49,18 @@
                                                     <color key="textColor" red="0.58823529411764708" green="0.58823529411764708" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Fg-bK-dx7">
-                                                    <rect key="frame" x="514" y="4" width="96" height="42"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Fg-bK-dx7">
+                                                    <rect key="frame" x="540" y="3" width="44" height="44"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="32Q-OY-O8x"/>
                                                         <constraint firstAttribute="width" constant="44" id="eaH-X9-gZR"/>
                                                     </constraints>
+                                                    <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                                     <state key="normal" image="add"/>
                                                     <state key="selected" image="check"/>
+                                                    <connections>
+                                                        <action selector="followButtonTapped:" destination="2AR-6V-f28" eventType="touchUpInside" id="d8a-uW-af4"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -64,8 +71,15 @@
                                                 <constraint firstItem="Ph9-aw-HJb" firstAttribute="leading" secondItem="Can-T5-SNs" secondAttribute="leadingMargin" constant="12" id="s6J-sO-fX2"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="followButton" destination="3Fg-bK-dx7" id="PjO-yd-WV7"/>
+                                            <outlet property="usernameLabel" destination="Ph9-aw-HJb" id="67V-WV-X4C"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Ktl-Us-bq3" id="VK6-jL-acF"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -82,6 +96,10 @@
                     <tabBarItem key="tabBarItem" title="" image="people" id="pbA-Wl-mMf">
                         <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="searchBar" destination="4ng-Us-J2E" id="pdF-PU-lQ8"/>
+                        <outlet property="tableView" destination="xY7-d9-opx" id="mUQ-JW-Lpi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNd-bV-r1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -168,8 +186,8 @@
                                                         <constraint firstAttribute="height" constant="20" id="yau-50-dxd"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Test User" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDo-gx-Y3U">
-                                                    <rect key="frame" x="54" y="366" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test User" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDo-gx-Y3U">
+                                                    <rect key="frame" x="60" y="366" width="482" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="84p-Lw-2oo"/>
                                                     </constraints>
