@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let acl = PFACL()
     acl.publicReadAccess = true
-    PFACL.setDefaultACL(acl, withAccessForCurrentUser: true)
+    PFACL.setDefaultACL(acl, withAccessForCurrentUser: true) //Only current user can edit
     
     return true
   }

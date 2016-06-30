@@ -35,6 +35,7 @@
 		B1ADD0B81D2112BB000958BC /* PhotoTakingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADD0B71D2112BB000958BC /* PhotoTakingHelper.swift */; };
 		B1ADD0BB1D224DB9000958BC /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADD0BA1D224DB9000958BC /* Post.swift */; };
 		B1ADD0BF1D22D371000958BC /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADD0BE1D22D371000958BC /* PostTableViewCell.swift */; };
+		B1ADD0C11D2371DC000958BC /* ParseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADD0C01D2371DC000958BC /* ParseHelper.swift */; };
 		B1EC1C181D1FDF1C006D570A /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EC1C171D1FDF1C006D570A /* TimelineViewController.swift */; };
 		B1EC1C1A1D1FDF7B006D570A /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EC1C191D1FDF7B006D570A /* PhotoViewController.swift */; };
 		B1EC1C1C1D1FDF91006D570A /* FriendSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EC1C1B1D1FDF91006D570A /* FriendSearchViewController.swift */; };
@@ -100,6 +101,7 @@
 		B1ADD0B71D2112BB000958BC /* PhotoTakingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTakingHelper.swift; sourceTree = "<group>"; };
 		B1ADD0BA1D224DB9000958BC /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Post.swift; path = ../Post.swift; sourceTree = "<group>"; };
 		B1ADD0BE1D22D371000958BC /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		B1ADD0C01D2371DC000958BC /* ParseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseHelper.swift; sourceTree = "<group>"; };
 		B1EC1C171D1FDF1C006D570A /* TimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		B1EC1C191D1FDF7B006D570A /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		B1EC1C1B1D1FDF91006D570A /* FriendSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendSearchViewController.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 			children = (
 				6277189D1B0A58E800AF5C6E /* ErrorHandling.swift */,
 				6277189E1B0A58E800AF5C6E /* ParseLoginHelper.swift */,
+				B1ADD0C01D2371DC000958BC /* ParseHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -522,6 +525,7 @@
 				B1EC1C1A1D1FDF7B006D570A /* PhotoViewController.swift in Sources */,
 				62C8C1E61B06BD6500DC3EA7 /* AppDelegate.swift in Sources */,
 				627718971B0A581700AF5C6E /* FilterViewController.swift in Sources */,
+				B1ADD0C11D2371DC000958BC /* ParseHelper.swift in Sources */,
 				B1ADD0BF1D22D371000958BC /* PostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
