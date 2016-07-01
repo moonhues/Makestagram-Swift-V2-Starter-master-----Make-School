@@ -16,10 +16,13 @@
 import Foundation
 import Parse
 import Bond
+import ConvenienceKit
 
 
 // 1 Need to inherit from PFObject and implmenet the PFSubclassing protocol
 class Post : PFObject, PFSubclassing {
+    
+    static var imageCache: NSCacheSwift<String, UIImage>!
     
     var likes: Observable<[PFUser]?> = Observable(nil)
     
@@ -48,17 +51,32 @@ class Post : PFObject, PFSubclassing {
         super.init()
     }
     
+    /*
     override class func initialize() {
         var onceToken : dispatch_once_t = 0;
         dispatch_once(&onceToken) {
             // inform Parse about this subclass
             self.registerSubclass()
         }
-    }
+    }*/
     
     /*
      1. When the uploadPost method is called, we grab the photo to be uploaded from the image property; turn it into a PFFile called imageFile.
-     2. We assign imageFile to self.imageFile. Then we call saveInBackground() to upload the Post.*/
+     2. We assign imageFile to self.imageFile. Then we call saveInBackground() to upload the Post.
+    */
+    
+    //MARK: Empty Image Cache
+    
+    override class func initialize() {
+        var onceToken : dispatch_once_t = 0;
+        dispatch_once(&onceToken) {
+            // inform Parse about this subclass
+            self.registerSubclass()
+            
+            // 1 Here we create an empty cache. Remember that the other lines in this method are primarily Parse boilerplate code.
+            Post.imageCache = NSCacheSwift<String, UIImage>()
+        }
+    }
     
     /* func uploadPost() {
      if let image = image {
@@ -121,11 +139,16 @@ class Post : PFObject, PFSubclassing {
             }
             
             saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+                if let error = error {
+                    ErrorHandling.defaultErrorHandler(error)
+                } else {
                 UIApplication.sharedApplication().endBackgroundTask(self.photoUploadTask!)
+                }
             }
         }
     }
     
+    /*
     func downloadImage() { //Moved from TimelineViewController
         // if image is not downloaded yet, get it
         // 1
@@ -140,12 +163,44 @@ class Post : PFObject, PFSubclassing {
             }
         }
     }
+ */
     
     /*
      1. First, we check if image.value already has a stored value. We do this to avoid downloading images multiple times. (We only want to start the donwload if image.value is nil.)
      2. Here we start the download. Instead of using getData we are using getDataInBackgroundWithBlock - that way we are no longer blocking the main thread!
      3. Once the download completes, we update the post.image. Note that we are now using the .value property, because image is an Observable.
      */
+    
+    //MARK: Download image from cache if available
+    func downloadImage() {
+        // 1
+        image.value = Post.imageCache[self.imageFile!.name]
+        
+        // if image is not downloaded yet, get it
+        if (image.value == nil) {
+            
+            imageFile?.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
+                
+                if let error = error {
+                    ErrorHandling.defaultErrorHandler(error)
+                }
+                
+                if let data = data {
+                    let image = UIImage(data: data, scale:1.0)!
+                    self.image.value = image
+                    // 2
+                    Post.imageCache[self.imageFile!.name] = image
+                }
+            }
+        }
+    }
+    
+    /*
+ 
+ 1. We attempt to assign a value to image.value directly from the cache, using self.imageFile.name as key. If this assignment is successful the entire download block will be skipped.
+ 2. If we didn't have the image cached, we proceed as usual. Then, when the image is downloaded, we add it to the cache.
+ 
+ */
     
     func fetchLikes() {
         // 1
@@ -155,6 +210,10 @@ class Post : PFObject, PFSubclassing {
         
         // 2
         ParseHelper.likesForPost(self, completionBlock: { (likes: [PFObject]?, error: NSError?) -> Void in
+            
+            if let error = error {
+                ErrorHandling.defaultErrorHandler(error)
+            } else {
             // 3
             let validLikes = likes?.filter { like in like[ParseHelper.ParseLikeFromUser] != nil }
             
@@ -163,6 +222,7 @@ class Post : PFObject, PFSubclassing {
                 let fromUser = like[ParseHelper.ParseLikeFromUser] as! PFUser
                 
                 return fromUser
+            }
             }
         })
     }

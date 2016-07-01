@@ -93,11 +93,13 @@ class ParseHelper {
         likeObject[ParseLikeFromUser] = user
         likeObject[ParseLikeToPost] = post
         
-        likeObject.saveInBackgroundWithBlock(nil)
+        //likeObject.saveInBackgroundWithBlock(nil)
+        likeObject.saveInBackgroundWithBlock(ErrorHandling.errorHandlingCallback)
     }
     
     // deleting a like
     
+    /*
     static func unlikePost(user: PFUser, post: Post) {
         // 1
         let query = PFQuery(className: ParseLikeClass)
@@ -112,7 +114,8 @@ class ParseHelper {
                 }
             }
         }
-    }
+    } 
+     */
     
     /*
      
@@ -120,6 +123,37 @@ class ParseHelper {
      2. We iterate over all like objects that met our requirements and delete them.
      
      */
+    
+    //MARK: Error handling in Unlike
+ 
+    static func unlikePost(user: PFUser, post: Post) {
+        
+        let query = PFQuery(className: ParseLikeClass)
+        query.whereKey(ParseLikeFromUser, equalTo: user)
+        query.whereKey(ParseLikeToPost, equalTo: post)
+        
+        query.findObjectsInBackgroundWithBlock { (results: [PFObject]?, error: NSError?) -> Void in
+            
+            if let error = error {
+                ErrorHandling.defaultErrorHandler(error)
+            }
+            
+            /*
+            if let results = results {
+                for like in results {
+                    like.deleteInBackgroundWithBlock(nil)
+                }
+            }*/
+            
+            // Instead of (nil) pass in the error handling in callback.
+            
+            if let results = results as [PFObject]? {
+                for likes in results {
+                    likes.deleteInBackgroundWithBlock(ErrorHandling.errorHandlingCallback)
+                }
+            }
+        }
+    }
     
     //fetching all the likes
     // 1
@@ -194,7 +228,9 @@ class ParseHelper {
         followObject.setObject(user, forKey: ParseFollowFromUser)
         followObject.setObject(toUser, forKey: ParseFollowToUser)
         
-        followObject.saveInBackgroundWithBlock(nil)
+        // followObject.saveInBackgroundWithBlock(nil)
+        
+        followObject.saveInBackgroundWithBlock(ErrorHandling.errorHandlingCallback)
     }
     
     /**
@@ -210,10 +246,17 @@ class ParseHelper {
         
         query.findObjectsInBackgroundWithBlock { (results: [PFObject]?, error: NSError?) -> Void in
             
+            if let error = error {
+                ErrorHandling.defaultErrorHandler(error)
+            } else {
+            
             let results = results ?? []
             
             for follow in results {
-                follow.deleteInBackgroundWithBlock(nil)
+                //follow.deleteInBackgroundWithBlock(nil)
+                follow.deleteInBackgroundWithBlock(ErrorHandling.errorHandlingCallback)
+            }
+                
             }
         }
     }
