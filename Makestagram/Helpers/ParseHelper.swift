@@ -248,14 +248,13 @@ class ParseHelper {
             
             if let error = error {
                 ErrorHandling.defaultErrorHandler(error)
-            } else {
+            }
             
             let results = results ?? []
             
             for follow in results {
                 //follow.deleteInBackgroundWithBlock(nil)
                 follow.deleteInBackgroundWithBlock(ErrorHandling.errorHandlingCallback)
-            }
                 
             }
         }

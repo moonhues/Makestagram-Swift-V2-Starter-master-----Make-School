@@ -331,6 +331,10 @@ extension TimelineViewController: UITableViewDataSource {
     func loadInRange(range: Range<Int>, completionBlock: ([Post]?) -> Void) {
         // 1
         ParseHelper.timelineRequestForCurrentUser(range) { (result: [PFObject]?, error: NSError?) -> Void in
+            
+            if let error = error {
+                ErrorHandling.defaultErrorHandler(error)
+            }
             // 2
             let posts = result as? [Post] ?? []
             // 3

@@ -141,9 +141,9 @@ class Post : PFObject, PFSubclassing {
             saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                 if let error = error {
                     ErrorHandling.defaultErrorHandler(error)
-                } else {
-                UIApplication.sharedApplication().endBackgroundTask(self.photoUploadTask!)
                 }
+                UIApplication.sharedApplication().endBackgroundTask(self.photoUploadTask!)
+                
             }
         }
     }
@@ -172,6 +172,7 @@ class Post : PFObject, PFSubclassing {
      */
     
     //MARK: Download image from cache if available
+    
     func downloadImage() {
         // 1
         image.value = Post.imageCache[self.imageFile!.name]
@@ -213,7 +214,7 @@ class Post : PFObject, PFSubclassing {
             
             if let error = error {
                 ErrorHandling.defaultErrorHandler(error)
-            } else {
+            }
             // 3
             let validLikes = likes?.filter { like in like[ParseHelper.ParseLikeFromUser] != nil }
             
@@ -222,7 +223,6 @@ class Post : PFObject, PFSubclassing {
                 let fromUser = like[ParseHelper.ParseLikeFromUser] as! PFUser
                 
                 return fromUser
-            }
             }
         })
     }

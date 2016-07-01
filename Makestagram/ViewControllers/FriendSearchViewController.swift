@@ -109,11 +109,10 @@ class FriendSearchViewController: UIViewController {
         
         if let error = error {
             ErrorHandling.defaultErrorHandler(error)
-        } else {
+        }
         
         self.users = results as? [PFUser] ?? []
         self.tableView.reloadData()
-        }
         
     }
     
