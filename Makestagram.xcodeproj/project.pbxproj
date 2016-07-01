@@ -37,6 +37,7 @@
 		B1ADD0BF1D22D371000958BC /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADD0BE1D22D371000958BC /* PostTableViewCell.swift */; };
 		B1ADD0C11D2371DC000958BC /* ParseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADD0C01D2371DC000958BC /* ParseHelper.swift */; };
 		B1ADD0CA1D24C5AC000958BC /* FriendSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADD0C91D24C5AC000958BC /* FriendSearchTableViewCell.swift */; };
+		B1ADD16E1D269B5D000958BC /* PostSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADD16D1D269B5D000958BC /* PostSectionHeaderView.swift */; };
 		B1EC1C181D1FDF1C006D570A /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EC1C171D1FDF1C006D570A /* TimelineViewController.swift */; };
 		B1EC1C1A1D1FDF7B006D570A /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EC1C191D1FDF7B006D570A /* PhotoViewController.swift */; };
 		B1EC1C1C1D1FDF91006D570A /* FriendSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EC1C1B1D1FDF91006D570A /* FriendSearchViewController.swift */; };
@@ -104,6 +105,7 @@
 		B1ADD0BE1D22D371000958BC /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		B1ADD0C01D2371DC000958BC /* ParseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseHelper.swift; sourceTree = "<group>"; };
 		B1ADD0C91D24C5AC000958BC /* FriendSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendSearchTableViewCell.swift; sourceTree = "<group>"; };
+		B1ADD16D1D269B5D000958BC /* PostSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostSectionHeaderView.swift; sourceTree = "<group>"; };
 		B1EC1C171D1FDF1C006D570A /* TimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		B1EC1C191D1FDF7B006D570A /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		B1EC1C1B1D1FDF91006D570A /* FriendSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendSearchViewController.swift; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 			isa = PBXGroup;
 			children = (
 				B1ADD0BE1D22D371000958BC /* PostTableViewCell.swift */,
+				B1ADD16D1D269B5D000958BC /* PostSectionHeaderView.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -536,6 +539,7 @@
 				B1ADD0B81D2112BB000958BC /* PhotoTakingHelper.swift in Sources */,
 				B1EC1C1A1D1FDF7B006D570A /* PhotoViewController.swift in Sources */,
 				62C8C1E61B06BD6500DC3EA7 /* AppDelegate.swift in Sources */,
+				B1ADD16E1D269B5D000958BC /* PostSectionHeaderView.swift in Sources */,
 				627718971B0A581700AF5C6E /* FilterViewController.swift in Sources */,
 				B1ADD0C11D2371DC000958BC /* ParseHelper.swift in Sources */,
 				B1ADD0BF1D22D371000958BC /* PostTableViewCell.swift in Sources */,
